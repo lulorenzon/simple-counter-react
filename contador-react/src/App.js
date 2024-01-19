@@ -1,25 +1,26 @@
+//
 import React, { useState } from 'react';
-import './src/App.css';
+import ProductList from './ProductList';
+import ProductDetails from './ProductDetails';
 
-function App() {
-  const [count, setCount] = useState(0);
+const App = () => {
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const increment = () => {
-    setCount(count + 1);
-  };
-
-  const decrement = () => {
-    setCount(count - 1);
+  const handleProductSelect = (product) => {
+    setSelectedProduct(product);
   };
 
   return (
-    <div className="App">
-      <h1>Contador</h1>
-      <p>{count}</p>
-      <button onClick={increment}>Incrementar</button>
-      <button onClick={decrement}>Decrementar</button>
+    <div>
+      <h1>Loja de Produtos</h1>
+      {selectedProduct ? (
+        <ProductDetails product={selectedProduct} />
+      ) : (
+        <ProductList onSelectProduct={handleProductSelect} />
+      )}
     </div>
   );
-}
+};
 
 export default App;
+

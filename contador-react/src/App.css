@@ -1,21 +1,59 @@
-.App {
-    text-align: center;
-    margin-top: 50px;
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.product-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.product-item {
+  cursor: pointer;
+  width: calc(33.33% - 20px);
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+.product-details {
+  width: 100%;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Responsive styles */
+@media only screen and (max-width: 768px) {
+  .product-item {
+    width: calc(50% - 20px);
   }
-  
-  h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 480px) {
+  .product-item {
+    width: 100%;
   }
-  
-  p {
-    font-size: 3em;
-  }
-  
-  button {
-    font-size: 1.5em;
-    margin: 0 10px;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-  
+}
