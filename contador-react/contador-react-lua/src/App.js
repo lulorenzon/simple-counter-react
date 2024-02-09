@@ -1,75 +1,77 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import './App.css';
+import axios from 'axios';
+import ProductsPage from './components/ProductsPage';  // Ajuste o caminho conforme a sua estrutura de diretórios
+import LoginPage from './components/LoginPage';
+import ProductCard from './components/ProductCard';
 
 function App() {
-  const [numberCount, setNumberCount] = useState(0);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [token, setToken] = useState('');
 
-  const handleNumberIncrement = () => {
-    setNumberCount(numberCount + 1);
-  };
+// ... Importações e código anterior ...
 
-  const handleNumberDecrement = () => {
-    if (numberCount > 0) {
-      setNumberCount(numberCount - 1);
+const produtos = [
+  // Preencha este array com os seus produtos
+  { titulo: 'Produto 1', descricao: 'Descrição do Produto 1', preco: 19.99, imagem: 'url_imagem1' },
+  { titulo: 'Produto 2', descricao: 'Descrição do Produto 2', preco: 29.99, imagem: 'url_imagem2' },
+  { titulo: 'Produto 2', descricao: 'Descrição do Produto 2', preco: 29.99, imagem: 'url_imagem2' },
+  { titulo: 'Produto 2', descricao: 'Descrição do Produto 2', preco: 29.99, imagem: 'url_imagem2' },
+
+  // Adicione mais produtos conforme necessário
+];
+
+const login = async () => {
+  try {
+    const response = await axios.post('http://localhost:3001/login', {
+      email: 'usuario@example.com',
+      password: 'senha123',
+    });
+    setToken(response.data.token);
+  } catch (error) {
+    if (error.response) {
+      // O servidor respondeu com um código de status fora da faixa 2xx
+      console.error('Erro no login:', error.response.data);
+    } else if (error.request) {
+      // A requisição foi feita, mas não houve resposta do servidor
+      console.error('Erro no login: Sem resposta do servidor');
+    } else {
+      // Algo aconteceu ao configurar a requisição que acionou um erro
+      console.error('Erro no login:', error.message);
     }
-  };
+  }
+};
 
-  const handleChange = (event) => {
-    const newUsername = event.target.value.slice(0, 10); // Limite de 10 caracteres
-    setUsername(newUsername);
-  };
+// ... Restante do código ...
 
-  const handlePasswordChange = (event) => {
-    const newPassword = event.target.value.slice(0, 8); // Limite de 8 caracteres
-    setPassword(newPassword);
-  };
 
-  const handleLogin = () => {
-    // Aqui você pode adicionar a lógica de autenticação
-    console.log('Usuário:', username);
-    console.log('Senha:', password);
-  };
 
   return (
-    <div className="app-container">
-      <div className="counters">
-        <h1>Contador de Números</h1>
-        <div className="counter-actions">
-          <button onClick={handleNumberIncrement}>+</button>
-          <p>{numberCount}</p>
-          <button onClick={handleNumberDecrement}>-</button>
+    <Router>
+      <div>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/produtos">Produtos</Link>
+          <Link path="/login"> Login</Link>
+        </nav>
+
+        <div className="card-container">
+          {produtos.map((produto, index) => (
+            <ProductCard key={index} produto={produto} />
+          ))}
         </div>
+
+        <Routes>
+          <Route
+            path="/produtos"
+            element={token ? <ProductsPage fetchProdutos={() => {}} produtos={[]} /> : <Navigate to="/" />}
+          />
+         
+        </Routes>
       </div>
-      <div className="login">
-        <h1>Contador de Caracteres no Campo de Login</h1>
-        <label htmlFor="username">Nome de Usuário:</label>
-        <input
-          type="text"
-          id="username"
-          value={username}
-          onChange={handleChange}
-          placeholder="Digite seu nome de usuário..."
-        />
-        <p>
-          {username.length}/10 caracteres
-        </p>
-        <label htmlFor="password">Senha:</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={handlePasswordChange}
-          placeholder="Digite sua senha..."
-        />
-        <p>
-          {password.length}/8 caracteres
-        </p>
-        <button onClick={handleLogin}>Entrar</button>
-      </div>
-    </div>
+    </Router>
   );
 }
+
 
 export default App;

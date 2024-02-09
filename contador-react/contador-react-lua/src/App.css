@@ -1,20 +1,100 @@
-.App {
+/* src/App.css */
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+nav {
+  background-color: #333;
+  padding: 15px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+nav ul li a:hover {
+  color: #61dafb;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.login-container {
   text-align: center;
-  margin-top: 50px;
 }
 
-h1 {
-  font-size: 2em;
-  margin-bottom: 20px;
-}
-
-p {
-  font-size: 3em;
-}
-
-button {
-  font-size: 1.5em;
-  margin: 0 10px;
+.login-container button {
   padding: 10px 20px;
+  font-size: 16px;
   cursor: pointer;
+  background-color: #61dafb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.login-container button:hover {
+  background-color: #4fa3d1;
+}
+
+.produtos-container {
+  text-align: center;
+}
+
+.produtos-container button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #61dafb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.produtos-container button:hover {
+  background-color: #4fa3d1;
+}
+
+.produtos-list {
+  list-style: none;
+  padding: 0;
+}
+
+.produtos-list li {
+  background-color: #fff;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* App.css */
+.card {
+  transition: filter 0.3s ease;
+}
+
+.card:hover {
+  filter: blur(5px);
 }
