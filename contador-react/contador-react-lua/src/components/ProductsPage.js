@@ -1,17 +1,40 @@
-// ProdutosPage.js
-import React from 'react';
+// ProductsPage.js
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const ProdutosPage = ({ fetchProdutos, produtos }) => (
-  <div>
-    {/* Seu conteúdo da página de produtos */}
-    <h2>Produtos</h2>
-    <button onClick={fetchProdutos}>Obter Produtos</button>
-    <ul>
-      {produtos.map((produto, index) => (
-        <li key={index}>{produto}</li>
-      ))}
-    </ul>
-  </div>
-);
+function ProductsPage() {
+  const [produtos, setProdutos] = useState([]);
 
-export default ProdutosPage;
+  useEffect(() => {
+    const fetchProdutos = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/produtos', {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        });
+        setProdutos(response.data);
+      } catch (error) {
+        console.error('Erro ao obter produtos:', error.message);
+      }
+    };
+
+    fetchProdutos();
+  }, []);
+
+  return (
+    <div>
+      <h2>Produtos</h2>
+      <ul>
+        {produtos.map((produto) => (
+          <li key={produto._id}>
+            <img src={produto.imagem} alt={produto.titulo} />
+            <h3>{produto.titulo}</h3>
+            <p>{produto.descricao}</p>
+            <p>Preço: R$ {produto.preco.toFixed(2)}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default ProductsPage;
